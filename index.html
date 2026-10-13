@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kopi Ruang Kita - Secangkir Kopi, Seribu Cerita</title>
+  <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .font-serif-custom { font-family: 'Playfair Display', serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .hover-scale { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .hover-scale:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body class="bg-white text-gray-700 relative pb-24">
+
+  <!-- NAVBAR UTAMA -->
+  <header class="bg-white text-[#4A3728] sticky top-0 z-50 shadow-sm border-b border-[#E9DDCD]">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl font-bold font-serif-custom tracking-wide text-[#4A3728]">
+          Kopi Ruang Kita
+        </span>
+      </div>
+
+      <!-- Menu Desktop -->
+      <div class="hidden lg:flex items-center space-x-6 font-medium text-[#5F5146] text-sm">
+        <a href="#home" class="hover:text-[#765640] transition">Home</a>
+        <a href="#tentang" class="hover:text-[#765640] transition">Tentang Kami</a>
+        <a href="#menu" class="hover:text-[#765640] transition">Menu</a>
+        <a href="#promo" class="hover:text-[#765640] transition">Promo</a>
+        <a href="#kontak" class="hover:text-[#765640] transition">Hubungi Kami</a>
+      </div>
+
+      <!-- Tombol Login & Pesan di Kanan -->
+      <div class="hidden lg:flex items-center gap-3">
+        <button 
+          onclick="toggleLoginModal(true)"
+          class="text-[#765640] hover:text-[#4A3728] font-medium text-sm transition px-4 py-2 rounded-lg border border-[#E9DDCD] hover:bg-[#F8F1E7] bg-white shadow-xs"
+        >
+          🔒 Login Staf
+        </button>
+        <a 
+          href="pesan.html" 
+          class="bg-[#765640] hover:bg-[#60432F] text-white font-semibold px-5 py-2 rounded-lg transition text-sm shadow-sm flex items-center gap-1.5 hover-scale"
+        >
+          🛒 Pesan Sekarang
+        </a>
+      </div>
+
+      <!-- Tombol Hamburger (Mobile) -->
+      <button onclick="toggleMobileMenu()" id="mobile-menu-btn" class="lg:hidden text-2xl text-[#765640] focus:outline-none">
+        ☰
+      </button>
+    </nav>
+
+    <!-- Menu untuk Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#F8F1E7] border-b border-[#E9DDCD] px-6 py-4 space-y-4 shadow-md">
+      <div class="flex flex-col space-y-3 font-medium text-[#5F5146]">
+        <a href="#home" onclick="toggleMobileMenu()" class="hover:text-[#765640] transition">Home</a>
+        <a href="#tentang" onclick="toggleMobileMenu()" class="hover:text-[#765640] transition">Tentang Kami</a>
+        <a href="#menu" onclick="toggleMobileMenu()" class="hover:text-[#765640] transition">Menu</a>
+        <a href="#promo" onclick="toggleMobileMenu()" class="hover:text-[#765640] transition">Promo</a>
+        <a href="#kontak" onclick="toggleMobileMenu()" class="hover:text-[#765640] transition">Hubungi Kami</a>
+      </div>
+      <div class="pt-2 border-t border-[#E9DDCD] flex flex-col gap-2">
+        <button onclick="toggleMobileMenu(); toggleLoginModal(true);" class="w-full text-center text-[#765640] py-2 rounded-lg border border-[#E9DDCD] bg-white text-sm">
+          🔒 Login Staf
+        </button>
+        <a href="pesan.html" class="w-full text-center bg-[#765640] text-white py-2.5 rounded-lg text-sm font-semibold">
+          🛒 Pesan Sekarang
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- login karyawan -->
+  <div id="login-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-xl border border-[#E9DDCD] relative">
+      <button onclick="toggleLoginModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-[#4A3728] text-xl font-bold">✕</button>
+      <h3 class="text-2xl font-bold font-serif-custom text-[#4A3728] mb-2 text-center">Login Karyawan</h3>
+      <p class="text-sm text-[#5F5146] text-center mb-6">Silakan masukkan akun manajemen Anda.</p>
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-[#4A3728] mb-1">Username</label>
+          <input type="text" id="login-username" required placeholder="Masukkan username..." class="w-full px-4 py-2.5 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640]" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-[#4A3728] mb-1">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640]" />
+        </div>
+        <button type="submit" class="w-full bg-[#765640] hover:bg-[#60432F] text-white font-semibold py-3 rounded-xl transition shadow-sm mt-2">
+          Masuk Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL PROMO  -->
+  <div id="promo-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl p-8 max-w-lg w-full shadow-xl border border-[#E9DDCD] relative">
+      <button onclick="togglePromoModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-[#4A3728] text-xl font-bold">✕</button>
+      <div id="promo-modal-content">
+        <!-- Diisi dinamis via JS -->
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- SECTION 1: HOME / HERO -->
+    <section id="home" class="min-h-screen flex items-center bg-[#F8F1E7]">
+      <div class="container mx-auto px-6 py-16">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-5">
+              <img 
+                src="assets/LogoKopiRuangKita.jpeg" 
+                alt="Logo Kopi Ruang Kita" 
+                class="w-36 h-36 object-cover rounded-full border-2 border-[#E9DDCD] shadow-md bg-white p-1 hover-scale" 
+              />
+            </div>
+            <span class="inline-block bg-[#E9DDCD] text-[#5F5146] text-xs font-bold tracking-widest px-4 py-2 rounded-full uppercase mb-5">
+              Selamat Datang di Kopi Ruang Kita
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold font-serif-custom text-[#4A3728] leading-tight mb-6">
+              Secangkir Kopi,<br>
+              <span class="text-[#765640]">Seribu Cerita.</span>
+            </h1>
+            <p class="text-[#5F5146] text-lg leading-relaxed mb-8 max-w-lg">
+              Nikmati kopi pilihan dengan suasana nyaman untuk berkumpul, bekerja, dan berbagi cerita bersama orang-orang tersayang.
+            </p>
+            <a href="#menu" class="inline-block bg-[#765640] hover:bg-[#60432F] text-white font-semibold px-8 py-3.5 rounded-full shadow-sm hover-scale transition">
+              Lihat Menu
+            </a>
+          </div>
+          <div class="flex justify-center">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Secangkir kopi" class="w-full max-w-lg h-[450px] object-cover rounded-3xl shadow-lg hover-scale" />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: TENTANG KAMI  -->
+    <section id="tentang" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="grid grid-cols-2 gap-4">
+            <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=600&q=80" alt="Suasana Kafe 1" class="w-full h-[250px] object-cover rounded-2xl shadow-md hover-scale" />
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Suasana Kafe 2" class="w-full h-[250px] object-cover rounded-2xl shadow-md hover-scale mt-8" />
+          </div>
+          <div>
+            <span class="text-[#765640] font-semibold tracking-widest uppercase text-sm">Tentang Kami</span>
+            <h2 class="text-3xl md:text-4xl font-bold font-serif-custom text-[#4A3728] mt-3 mb-5">Tempat untuk Kopi dan Cerita</h2>
+            <p class="text-[#5F5146] leading-relaxed mb-4">
+              Kopi Ruang Kita adalah tempat yang nyaman untuk menikmati kopi berkualitas sambil berbagi cerita bersama teman, keluarga, maupun orang-orang terdekat. Kami menghadirkan suasana hangat dan biji kopi pilihan nusantara.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: MENU  -->
+    <section id="menu" class="py-20 bg-[#F8F1E7]">
+      <div class="container mx-auto px-5 md:px-6">
+        <div class="text-center mb-10">
+          <span class="text-[#765640] font-semibold tracking-widest uppercase text-sm">Pilihan Kami</span>
+          <h2 class="text-3xl md:text-4xl font-bold font-serif-custom text-[#4A3728] mt-3 mb-4">Menu & Harga Kopi Ruang Kita</h2>
+          <p class="text-[#5F5146] max-w-xl mx-auto mb-6">Pilih kategori menu di bawah ini untuk melihat daftar produk.</p>
+          
+          <!-- Tombol Kategori  -->
+          <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button onclick="filterCategory('All')" id="btn-All" class="px-5 py-2 rounded-full font-semibold text-sm bg-[#765640] text-white transition shadow-sm">All</button>
+            <button onclick="filterCategory('Coffee')" id="btn-Coffee" class="px-5 py-2 rounded-full font-semibold text-sm bg-white text-[#765640] border border-[#E9DDCD] hover:bg-[#E9DDCD] transition shadow-sm">Coffee</button>
+            <button onclick="filterCategory('Non-Coffee')" id="btn-Non-Coffee" class="px-5 py-2 rounded-full font-semibold text-sm bg-white text-[#765640] border border-[#E9DDCD] hover:bg-[#E9DDCD] transition shadow-sm">Non-Coffee</button>
+            <button onclick="filterCategory('Snack')" id="btn-Snack" class="px-5 py-2 rounded-full font-semibold text-sm bg-white text-[#765640] border border-[#E9DDCD] hover:bg-[#E9DDCD] transition shadow-sm">Snack</button>
+          </div>
+        </div>
+        
+        <div class="max-w-md mx-auto mb-12">
+          <input 
+            type="search" 
+            id="search-input"
+            oninput="handleSearchIndex()"
+            placeholder="Cari menu..." 
+            class="w-full px-5 py-3 rounded-full bg-white border border-[#E9DDCD] text-[#4A3728] focus:outline-none focus:border-[#765640]" 
+          />
+        </div>
+        <div id="menu-container-index" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div class="text-center mt-12">
+          <a href="pesan.html" class="inline-block bg-[#765640] hover:bg-[#60432F] text-white font-semibold px-8 py-3.5 rounded-full shadow-sm hover-scale transition">
+            🛒 Pergi ke Halaman Pemesanan & Pembayaran
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!--  PROMO  -->
+    
+
+    <!-- SECTION 5: HUBUNGI KAMI  -->
+    <section id="kontak" class="py-20 bg-[#F8F1E7]">
+      <div class="container mx-auto px-6 max-w-xl">
+        <div class="text-center mb-10">
+          <span class="text-[#765640] font-semibold tracking-widest uppercase text-sm">Ada Pertanyaan?</span>
+          <h2 class="text-3xl font-bold font-serif-custom text-[#4A3728] mt-2">Hubungi Kami</h2>
+        </div>
+        <form onsubmit="handleContactSubmit(event)" class="bg-white p-8 rounded-3xl shadow-sm border border-[#E9DDCD] space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-[#4A3728] mb-1">Nama Lengkap</label>
+            <input type="text" id="contact-name" placeholder="Masukkan nama..." class="w-full px-4 py-2.5 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640]" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#4A3728] mb-1">Email</label>
+            <input type="email" id="contact-email" placeholder="nama@email.com" class="w-full px-4 py-2.5 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640]" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[#4A3728] mb-1">Pesan</label>
+            <textarea id="contact-message" rows="4" placeholder="Tuliskan pesan atau kritik saran..." class="w-full px-4 py-2.5 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640]"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-[#765640] hover:bg-[#60432F] text-white font-semibold py-3 rounded-xl transition shadow-sm">
+            Kirim Pesan
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (Syarat 11) -->
+  <footer class="bg-white text-[#5F5146] py-12 border-t border-[#E9DDCD]">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-2xl font-bold font-serif-custom mb-4 text-[#4A3728]">Kopi Ruang Kita</h3>
+        <p class="text-sm text-[#5F5146] leading-relaxed">Menyajikan secangkir kopi dengan seribu cerita.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4 text-[#4A3728]">Informasi & Lokasi</h3>
+        <ul class="space-y-2 text-sm text-[#5F5146]">
+          <li>📍 Jl. Dr. Mansyur No. 12, Medan</li>
+          <li>🕒 Jam Buka: Setiap Hari (08.00 - 22.00 WIB)</li>
+          <li>📞 0812-3456-7890</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4 text-[#4A3728]">Media Sosial</h3>
+        <div class="flex space-x-3">
+          <a href="#" class="w-10 h-10 rounded-lg bg-[#F8F1E7] text-[#765640] border border-[#E9DDCD] flex items-center justify-center font-bold">IG</a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-[#F8F1E7] text-[#765640] border border-[#E9DDCD] flex items-center justify-center font-bold">TT</a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-[#F8F1E7] text-[#765640] border border-[#E9DDCD] flex items-center justify-center font-bold">FB</a>
+        </div>
+      </div>
+    </div>
+    <div class="container mx-auto px-6 text-center mt-12 pt-6 border-t border-[#E9DDCD] text-xs">
+      &copy; 2026 Kopi Ruang Kita. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
