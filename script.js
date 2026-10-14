@@ -137,3 +137,66 @@ function handleCheckout(e) {
   saveCart();
   window.location.href = 'index.html';
 }
+
+function openPromoDetail(title, desc) {
+  const modal = document.getElementById('promo-modal');
+  const content = document.getElementById('promo-modal-content');
+  if (modal && content) {
+    content.innerHTML = `
+      <h3 class="text-2xl font-bold font-serif-custom text-[#4A3728] mb-3">${title}</h3>
+      <p class="text-[#5F5146] leading-relaxed mb-6">${desc}</p>
+      <button onclick="togglePromoModal(false)" class="w-full bg-[#765640] text-white py-2.5 rounded-xl font-semibold">Tutup</button>
+    `;
+    modal.classList.remove('hidden');
+  }
+}
+
+function togglePromoModal(open) {
+  const modal = document.getElementById('promo-modal');
+  if (modal) {
+    if (open) modal.classList.remove('hidden');
+    else modal.classList.add('hidden');
+  }
+}
+
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('contact-name').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+  const message = document.getElementById('contact-message').value.trim();
+
+  if (!name || !email || !message) {
+    alert('Peringatan: Seluruh field pada form Hubungi Kami wajib diisi!');
+    return;
+  }
+
+  alert(`Terima kasih ${name}, pesan Anda telah berhasil dikirim! Kami akan merespons melalui email.`);
+  document.getElementById('contact-name').value = '';
+  document.getElementById('contact-email').value = '';
+  document.getElementById('contact-message').value = '';
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  if (menu) menu.classList.toggle('hidden');
+}
+
+function toggleLoginModal(open) {
+  const modal = document.getElementById('login-modal');
+  if (modal) {
+    if (open) modal.classList.remove('hidden');
+    else modal.classList.add('hidden');
+  }
+}
+
+function handleLoginSubmit(e) {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value;
+  alert(`Login berhasil! Selamat datang staf, ${username}.`);
+  toggleLoginModal(false);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderMenuIndex();
+  renderMenuPesan();
+});
