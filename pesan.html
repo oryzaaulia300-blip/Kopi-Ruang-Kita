@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kopi Ruang Kita - Halaman Pemesanan</title>
+  <title>Pemesanan & Pembayaran - Kopi Ruang Kita</title>
   <link href="./output.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -18,33 +18,35 @@
     <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
       <span class="text-2xl font-bold font-serif-custom tracking-wide text-[#4A3728]">Kopi Ruang Kita</span>
       <a href="index.html" class="text-[#765640] font-medium text-sm hover:underline flex items-center gap-1">
-        ← Kembali ke Katalog Menu
+        ← Kembali ke Beranda
       </a>
     </nav>
   </header>
 
-  <main class="container mx-auto px-5 md:px-6 py-12 max-w-4xl">
-    <h1 class="text-3xl font-bold font-serif-custom text-[#4A3728] mb-8 text-center">Konfirmasi Pesanan Anda</h1>
+  <main class="container mx-auto px-5 md:px-6 py-12 max-w-6xl">
+    <h1 class="text-3xl font-bold font-serif-custom text-[#4A3728] mb-2 text-center">Halaman Pemesanan & Pembayaran</h1>
+    <p class="text-center text-[#5F5146] mb-10">Pilih jumlah menu yang ingin kamu pesan di bawah ini.</p>
 
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Daftar Item yang Dipesan -->
-      <div class="md:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-[#E9DDCD]">
-        <h2 class="text-xl font-bold text-[#4A3728] mb-4 border-b pb-3">Ringkasan Keranjang</h2>
-        <div id="checkout-items" class="space-y-4 mb-6">
-          <!-- Render dinamis via JS -->
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Daftar Menu dengan Tombol Tambah -->
+      <div class="lg:col-span-2 space-y-8">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E9DDCD]">
+          <h2 class="text-xl font-bold text-[#4A3728] mb-4 border-b pb-3">Pilih Menu</h2>
+          <div id="pesan-menu-container" class="space-y-6">
+          </div>
         </div>
       </div>
 
-      <!-- Form & Total Pembayaran -->
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E9DDCD] h-fit">
-        <h2 class="text-xl font-bold text-[#4A3728] mb-4 border-b pb-3">Total Pembayaran</h2>
+      <!-- Ringkasan & Form Pembayaran -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-[#E9DDCD] h-fit sticky top-24">
+        <h2 class="text-xl font-bold text-[#4A3728] mb-4 border-b pb-3">Ringkasan Pembayaran</h2>
         <div class="space-y-3 mb-6">
           <div class="flex justify-between text-[#5F5146]">
-            <span>Subtotal</span>
-            <span id="subtotal-price">Rp 0</span>
+            <span>Total Item</span>
+            <span id="summary-count">0 item</span>
           </div>
           <div class="flex justify-between font-bold text-lg text-[#4A3728] border-t pt-3">
-            <span>Total</span>
+            <span>Total Bayar</span>
             <span id="total-price" class="text-[#765640]">Rp 0</span>
           </div>
         </div>
@@ -58,14 +60,23 @@
             <label class="block text-sm font-medium text-[#4A3728] mb-1">Nomor Meja / Catatan</label>
             <input type="text" id="buyer-note" required placeholder="Contoh: Meja 05" class="w-full px-4 py-2 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640]" />
           </div>
+          <div>
+            <label class="block text-sm font-medium text-[#4A3728] mb-1">Metode Pembayaran</label>
+            <select id="payment-method" class="w-full px-4 py-2 rounded-xl border border-[#E9DDCD] focus:outline-none focus:border-[#765640] bg-white">
+              <option value="Tunai di Kasir">Tunai (Bayar di Kasir)</option>
+              <option value="QRIS">QRIS</option>
+              <option value="Transfer Bank">Transfer Bank</option>
+            </select>
+          </div>
           <button type="submit" class="w-full bg-[#765640] hover:bg-[#60432F] text-white font-semibold py-3 rounded-xl transition shadow-sm mt-4">
-            Proses Pesanan Sekarang
+            Bayar & Kirim Pesanan
           </button>
         </form>
       </div>
     </div>
   </main>
 
+  <!-- Script JavaScript Eksternal -->
   <script src="script.js"></script>
 </body>
 </html>
